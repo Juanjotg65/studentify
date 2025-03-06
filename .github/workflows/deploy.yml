@@ -32,4 +32,4 @@ jobs:
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name studentify \
             --description "studentify" \
-            --github-location repository=studentify/studentify-app,commitId=main
+            --github-location github.repository=studentify/studentify-app,commitId=main
