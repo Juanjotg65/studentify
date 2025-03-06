@@ -1,0 +1,16 @@
+name: Deply Test Application
+
+on:
+  workflow_run:
+    workflows: ["Run tests"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu22.04
+    permissions:
+        contents: read
+    steps:
+      - uses: actions/checkout@v4
+      
