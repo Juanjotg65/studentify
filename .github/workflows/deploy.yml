@@ -10,18 +10,26 @@ on:
 
 jobs:
   deploy:
-
     runs-on: ubuntu-22.04
     permissions:
       contents: read
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: us-east-1
-        role-skip-session-tagging: true
+      - uses: actions/checkout@v4
+      
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+          role-skip-session-tagging: true
+
+      - name: Crear despliegue en CodeDeploy
+        run: 
+          aws deploy create-deployment 
+            application-name WordPress_App 
+            deployment-config-name CodeDeployDefault.OneAtATime 
+            deployment-group-name WordPress_DG 
+            description "studentify" 
+            github-location repository=studentify/wordpress-app,commitId=main
