@@ -26,10 +26,10 @@ jobs:
           role-skip-session-tagging: true
 
       - name: Crear despliegue en CodeDeploy
-        run: 
-          aws deploy create-deployment 
-            application-name WordPress_App 
-            deployment-config-name CodeDeployDefault.OneAtATime 
-            deployment-group-name WordPress_DG 
-            description "studentify" 
-            github-location repository=studentify/wordpress-app,commitId=main
+        run: |
+          aws deploy create-deployment \
+            --application-name WordPress_App \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --deployment-group-name WordPress_DG \
+            --description "studentify" \
+            --github-location repository=studentify/wordpress-app,commitId=<commit-sha>
