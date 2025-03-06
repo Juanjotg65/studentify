@@ -1,24 +1,27 @@
-name: Deploy Test Application
+name: Deploy Application
 
 on:
   workflow_run:
-    workflows: 
-      - "Test Application"
+    workflows:
+      - Test Application
     types:
       - completed
+  
 
 jobs:
   deploy:
-    runs-on: ubuntu22.04
+
+    runs-on: ubuntu-22.04
     permissions:
-        contents: read
+      contents: read
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-region: us-east-1
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          audience: sts.amazonaws.com
-          role-skip-session-tagging: true
+    - uses: actions/checkout@v4
+    
+    - uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: ${{ secrets.AWS_REGION }}
+        role-skip-session-tagging: true
