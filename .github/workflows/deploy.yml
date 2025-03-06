@@ -28,8 +28,8 @@ jobs:
       - name: Crear despliegue en CodeDeploy
         run: |
           aws deploy create-deployment \
-            --application-name WordPress_App \
+            --application-name Studentify \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name WordPress_DG \
+            --deployment-group-name studentify \
             --description "studentify" \
-            --github-location repository=studentify/wordpress-app,commitId=<commit-sha>
+            --github-location repository=studentify/studentify-app,commitId=main
