@@ -1,4 +1,4 @@
-name: Deploy Application
+name: Deploy Test Application
 
 on:
   workflow_run:
@@ -12,25 +12,21 @@ jobs:
     runs-on: ubuntu-22.04
     permissions:
       contents: read
-
     steps:
       - uses: actions/checkout@v4
-      
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
-          role-skip-session-tagging: true
-
-      - name: Crear despliegue en CodeDeploy
+          #codedeploy
+      - name: Deploy AWS CodeDeploy
         run: |
           aws deploy create-deployment \
             --application-name Studentify-Deploy \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name Studentify \
+            --deployment-group-name Studentify-Deploy \
             --github-location "repository=${{ github.repository }},commitId=${{ github.sha }}" \
             --region us-east-1 \
-            --description "Studentify" \
-            --debug
+            --description "Studentify Deploy"
