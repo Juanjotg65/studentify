@@ -30,6 +30,7 @@ jobs:
           aws deploy create-deployment \
             --application-name Studentify \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name studentify \
-            --description "studentify" \
-            --github-location github.repository=studentify/studentify-app,commitId=main
+            --deployment-group-name Studentify \
+            --github-location "repository=${{ github.repository }},commitId=${{ github.sha }}" \
+            --region us-east-1 \
+            --description "Studentify Deploy Correction"
