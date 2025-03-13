@@ -6,7 +6,6 @@ on:
       - Test Application
     types:
       - completed
-  
 
 jobs:
   deploy:
@@ -33,4 +32,5 @@ jobs:
             --deployment-group-name Studentify \
             --github-location "repository=${{ github.repository }},commitId=${{ github.sha }}" \
             --region us-east-1 \
-            --description "Studentify"
+            --description "Studentify" \
+            --debug
